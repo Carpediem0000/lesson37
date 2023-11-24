@@ -18,9 +18,27 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Vagon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Plazkart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kupe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vagon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Plazkart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kupe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

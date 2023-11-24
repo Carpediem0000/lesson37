@@ -1,58 +1,57 @@
-#include "MyStack.h"
+#include "Kupe.h"
 #include <string>
-
-bool VaildBrackets(std::string line) {
-	myStack::Stack<char> b;
-	for (int i = 0; i < line.size(); i++)
-	{
-		if (line[i] == '(' || line[i] == '[' || line[i] == '{')
-			b.push_back(line[i]);
-		else if (line[i] == ')' || line[i] == ']' || line[i] == '}') {
-			if (b.isEmpty())
-				return false;
-			if (b.top() == '(' && line[i] == ')' || b.top() == '[' && line[i] == ']' || b.top() == '{' && line[i] == '}')
-			{
-				b.pop_back();
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-	if (b.isEmpty()) return true;
-	else return false;
-}
+#include <list>
+#include <stack>
+#include <algorithm>
+#include "MyStack.h"
 
 int main()
 {
-	/*myStack::Stack<std::string> a;
+	stack<Vagon*> trainLviv;
+	trainLviv.push(new Plazkart(1, 50));
+	trainLviv.push(new Plazkart(2, 50));
+	trainLviv.push(new Kupe(6, 50, true));
+	trainLviv.push(new Plazkart(3, 50));
+	trainLviv.push(new Kupe(8, 50, true));
+	trainLviv.push(new Plazkart(4, 50));
+	trainLviv.push(new Kupe(5, 50, false));
+	trainLviv.push(new Kupe(7, 50, false));
 
-	a.push_back("students");
-	a.push_back("of");
-	a.push_back("the");
-	a.push_back("group");
-	a.push_back("PV");
-	a.push_back("321");
+	stack<Vagon*> statePlazkart;
+	stack<Vagon*> stateKupe;
 
-	a.showStack();
-	a.pop_back();
-	a.showStack();
-
-	cout << "-----------------------\n";
-
-	while (!a.isEmpty())
+	while (!trainLviv.empty())
 	{
-		if (a.top().size() == 2)
+		if (trainLviv.top()->type() == "Plazkart")
 		{
-			cout << a.top() << " ";
+			statePlazkart.push(trainLviv.top());
+			trainLviv.pop();
 		}
-		a.pop_back();
+		else if (trainLviv.top()->type() == "Kupe") {
+			stateKupe.push(trainLviv.top());
+			trainLviv.pop();
+		}
 	}
-	cout << endl;
-	a.showStack();*/
 
-	cout << "[()]{} => " << VaildBrackets("[()]{}") << endl;
-	cout << "][ => " << VaildBrackets("][") << endl;
-	cout << "[({)]} => " << VaildBrackets("[({)]}") << endl;
+	if (trainLviv.empty())
+	{
+		cout << "Train succsessfully sorted\n";
+	}
+
+	list<Vagon*> trainKyiv;
+
+	trainKyiv.push_back(statePlazkart.top());
+	statePlazkart.pop();
+	trainKyiv.push_back(statePlazkart.top());
+	statePlazkart.pop();
+	trainKyiv.push_back(statePlazkart.top());
+	statePlazkart.pop();
+	trainKyiv.push_back(stateKupe.top());
+	stateKupe.pop();
+	trainKyiv.push_back(stateKupe.top());
+	stateKupe.pop();
+	trainKyiv.push_back(stateKupe.top());
+	stateKupe.pop();
+
+	for_each(trainKyiv.begin(), trainKyiv.end(), [](Vagon* obj) {obj->show(); });
 }

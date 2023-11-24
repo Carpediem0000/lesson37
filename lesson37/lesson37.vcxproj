@@ -127,10 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Kupe.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Plazkart.cpp" />
+    <ClCompile Include="Vagon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Kupe.h" />
     <ClInclude Include="MyStack.h" />
+    <ClInclude Include="Plazkart.h" />
+    <ClInclude Include="Vagon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
