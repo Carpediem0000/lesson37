@@ -1,57 +1,62 @@
-#include "Kupe.h"
-#include <string>
-#include <list>
+#include <iostream>
 #include <stack>
-#include <algorithm>
-#include "MyStack.h"
+using namespace std;
+class Point
+{
+	int x;
+	int y;
+public:
+	Point() { x = y = 0; }
+	Point(int x, int y) { this->x = x; this->y = y; }
+
+	int getX()const { return x; }
+	int getY()const { return y; }
+
+	void show()const {
+		cout << "[" << x << ", " << y << "]" << endl;
+	}
+};
 
 int main()
 {
-	stack<Vagon*> trainLviv;
-	trainLviv.push(new Plazkart(1, 50));
-	trainLviv.push(new Plazkart(2, 50));
-	trainLviv.push(new Kupe(6, 50, true));
-	trainLviv.push(new Plazkart(3, 50));
-	trainLviv.push(new Kupe(8, 50, true));
-	trainLviv.push(new Plazkart(4, 50));
-	trainLviv.push(new Kupe(5, 50, false));
-	trainLviv.push(new Kupe(7, 50, false));
+	const int row = 6;
+	const int col = 10;
+	const char* maze[row] = { "0000000000",
+							  "0s000    0" 
+							  "0 0 0 00 0" 
+							  "0     00 0"
+							  "00000000x0"
+							  "0000000000"
+	};
 
-	stack<Vagon*> statePlazkart;
-	stack<Vagon*> stateKupe;
-
-	while (!trainLviv.empty())
+	stack<Point> way;
+	int i = 1;
+	int j = 1;
+	while (maze[i][j] != 'x')
 	{
-		if (trainLviv.top()->type() == "Plazkart")
-		{
-			statePlazkart.push(trainLviv.top());
-			trainLviv.pop();
+		/*way.push(Point(i, j));*/
+		cout << i << " " << j << endl;
+		if (i + 1 != 0) {
+			way.push(Point(++i, j));
 		}
-		else if (trainLviv.top()->type() == "Kupe") {
-			stateKupe.push(trainLviv.top());
-			trainLviv.pop();
+		else if (j + 1 != 0) {
+			way.push(Point(i, ++j));
+		}
+		else if (j + 1 == 0) {
+			if (i+1 != 0){
+				i++;
+			}
+			else if (i - 1 != 0) {
+				i--;
+			}
+		}
+		else if (i + 1 == 0) {
+			if (j + 1 != 0) {
+				j++;
+			}
+			else if (j - 1 != 0) {
+				j--;
+			}
 		}
 	}
-
-	if (trainLviv.empty())
-	{
-		cout << "Train succsessfully sorted\n";
-	}
-
-	list<Vagon*> trainKyiv;
-
-	trainKyiv.push_back(statePlazkart.top());
-	statePlazkart.pop();
-	trainKyiv.push_back(statePlazkart.top());
-	statePlazkart.pop();
-	trainKyiv.push_back(statePlazkart.top());
-	statePlazkart.pop();
-	trainKyiv.push_back(stateKupe.top());
-	stateKupe.pop();
-	trainKyiv.push_back(stateKupe.top());
-	stateKupe.pop();
-	trainKyiv.push_back(stateKupe.top());
-	stateKupe.pop();
-
-	for_each(trainKyiv.begin(), trainKyiv.end(), [](Vagon* obj) {obj->show(); });
 }
